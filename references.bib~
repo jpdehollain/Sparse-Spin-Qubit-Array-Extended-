@@ -8625,17 +8625,3 @@
     eprint = {0002077v3},
     primaryClass = {quant-ph}
 }
-
-@Article{Dennis2002,
-  author    = {Dennis, Eric and Kitaev, Alexei and Landahl, Andrew and Preskill, John},
-  title     = {Topological quantum memory},
-  journal   = jmp,
-  year      = {2002},
-  volume    = {43},
-  number    = {9},
-  pages     = {4452--4505},
-  month     = {sep},
-  comment   = {Sparse array: Surface code},
-  doi       = {10.1063/1.1499754},
-  publisher = {{AIP} Publishing},
-}

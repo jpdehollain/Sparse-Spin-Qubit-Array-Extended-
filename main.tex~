@@ -90,7 +90,7 @@ Section~\ref{sec:surface_code} describes in detail the implementation of the sur
 Finally, we discuss how the locally integrated electronics reduces the number of connections at the quantum plane boundary and the corresponding footprint in Sections~\ref{sec:line_scaling} and \ref{sec:footprint}.
 
 %%% Main text
-\section{Array design and operation}
+\section{Array design}
 \label{sec:array_design}
 \begin{figure*}[t]
     \centering
@@ -107,7 +107,7 @@ Finally, we discuss how the locally integrated electronics reduces the number of
   In contrast to most other spin-qubit architectures, this array is sparse, with a qubit pitch $d \sim 12$~\textmu m.
   This has two major implications:
   \begin{enumerate}
-    \item It requires a non-conventional qubit operation protocol, which we implement by shuttling the qubits to operation regions--where single- and two-qubit operations are performed along with readout.
+    \item It requires a non-conventional qubit operation protocol, which we implement by shuttling the qubits to interaction regions--where single- and two-qubit operations are performed along with readout.
     \item It facilitates the local integration of classical control electronics, consisting here of sample-and-hold circuits that provide independent DC biasing of each gate electrode, which effectively offsets inhomogeneities in the potential landscape across the array.
     Consequently, the array can be considered fully homogeneous allowing the majority of qubit control signals to be shared across the entire array, which significantly reduces the number of control lines at the quantum plane boundary.
   \end{enumerate}
@@ -119,7 +119,7 @@ Finally, we discuss how the locally integrated electronics reduces the number of
   All other operations that are part of the surface code cycle occur simultaneously in all unit cells in the entire array.
   Completing the array, the quantum plane (\autoref{fig:overview}(c)) consist of \textit{M$\times$M} modules, covering an area and a perimeter of $(2dNM)^2$ and $8dNM$ respectively, with a total of $4M^2N^2$ qubits.
   As seen from \autoref{fig:overview}(d) the quantum plane does not occupy the entire area of the die, with the remaining space to be used to reduce the off-chip wire count even further. 
-}
+  }
 
 \begin{figure*}[t]
     \centering
@@ -131,33 +131,18 @@ Finally, we discuss how the locally integrated electronics reduces the number of
     \label{fig:unit_cell_schematics}
 \end{figure*}
 
-\textcolour{blue}{
-  A detailed schematic of the components of a unit cell is presented in \autoref{fig:unit_cell_schematics}.
-  The unit cell mainly consists of large linear arrays of electrostatic gates, connecting the vertices of the qubit array to the operation regions (see \autoref{fig:unit_cell_schematics}(a)).
-  The bulk of the gates in these linear arrays make up the shuttling channels (blue gates in \autoref{fig:unit_cell_schematics}).
-  Four phase-shifted sinusoidal are applied to four consecutive gates (shades of blue in \autoref{fig:unit_cell_schematics}), creating a travelling-wave potential to trap and shuttle an electron.
-  The shuttling signals are always on, and the sign of the phase difference between adjacent gates defines the shuttling direction.
-  Four gates at the vertices of the spider-web array (red gates in \autoref{fig:unit_cell_schematics}(b), are used to control both the confinement potential that keeps the electrons at the vertex while idle, as well as the tunnelling in and out of the shuttling channels.
-}
-The qubits are shuttled to the operation regions between the vertices  in order to perform single- and two-qubit operations, as well as readout and initialization.
-\textcolour{blue}{
-  \autoref{fig:unit_cell_schematics}(c) shows a schematic of the gate structure used in the operation regions.  
-  Single-qubit gates are performed via electric dipole spin resonance (EDSR) in a transverse magnetic field gradient provided by a pair of micromagnets~\cite{Pioro-Ladriere2007}.
-  The native two-qubit operation is $\sqrt{SWAP}$, which relies on the exchange interaction between  electron spins~\cite{Loss1998,Divincenzo2000,Nielsen2016}.
-  Qubit readout is performed via spin-to-charge conversion based on Pauli spin blockade~\cite{Zwanenburg2013}, using a charge sensing quantum dot connected to source/drain ohmic contacts.
-  The array is initialized by loading electrons from the reservoirs and shuttling them to the vertices.
-  Qubits are able to share an operation region to perform single-qubit gates and only ancilla qubits have to be read out, so not all operation regions require these capabilities.
-  In contrast, two-qubit gates have to be performed between all qubit pairs.
-  Therefore, as shown in \autoref{fig:unit_cell_schematics}(a), a unit cell contains four qubit idle regions (\autoref{fig:unit_cell_schematics}(b)), two regions to perform single- and two-qubit gates as well as initialization and readout (\autoref{fig:unit_cell_schematics}(c)), and six regions with a simpler gate structure, where only two-qubit gates can be performed (\autoref{fig:unit_cell_schematics}(d)).
-  In the following section, we will describe in more detail the signals required on different gates to perform all of the operations in the spider-web array.
-}
-
-\subsection{Operation speeds}
-\begin{itemize}
-\item Fastest demonstrated  single(EDSR)- and two(exchange)-qubit operation times for Si quantum dot qubits.
-\item Assuming 1 GHz shuttling signal and a gate pitch of 50 nm, the electrons will be shuttled with a velocity of 200 nm/ns and a distance of 10 \textmu m takes 50 ns.
-\item Calculate the number of operations (and surface code cycles?) that can be achieved with typical(best) coherence times of Si qubits. 
-\end{itemize}
+\textcolour{blue}{A detailed schematic of the components of a unit cell is presented in \autoref{fig:unit_cell_schematics}.
+  The unit cell mainly consists of large linear arrays of electrostatic gates, connecting the vertices of the qubit array to the interaction regions (see \autoref{fig:unit_cell_schematics}(a)).
+  }
+Qubits are separated by the qubit pitch $d$ and remain at the vertices of the lattice (\autoref{fig:unit_cell_schematics}(b)) while idle, where they are surrounded by barrier gates (in red) that control both the confinement potential that keeps the electrons at the vertex, as well as the tunnelling in and out of the shuttling channels.
+The qubits are shuttled to the operations regions between the vertices (\autoref{fig:unit_cell_schematics}(c,d)) in order to perform single- and two-qubit operations, as well as readout and initialization.
+Initialization of the array is done by loading electrons from the reservoirs in the operations region shown in \autoref{fig:unit_cell_schematics}(c) and shuttling them to the vertices.
+Single-qubit gates are performed in the same operations region via electric dipole spin resonance (EDSR) is a transverse magnetic field gradient provided by a pair of micromagnets~\cite{Pioro-Ladriere2007}.
+Two-qubit gates are performed in the operations regions shown in \autoref{fig:unit_cell_schematics}(c,d) and rely on the exchange interaction between electron spins to perform a $\sqrt{SWAP}$ operation~\cite{Loss1998,Divincenzo2000,Nielsen2016}.
+Finally, qubit readout is performed in the operations region shown in \autoref{fig:unit_cell_schematics}(c), where a readout quantum dot connected to source/drain ohmic contacts is used for charge sensing and spin readout is achieved via spin-to-charge conversion based on Pauli spin blockade~\cite{Zwanenburg2013}.
+Two-qubit gates have to be performed between all qubit pairs and therefore a two-qubit gate can be performed in all operations regions.
+Qubits are able to share an operations region to perform single-qubit gates and only ancilla qubits have to be read out, so not all operations regions require these capabilities.
+Therefore, as shown in \autoref{fig:unit_cell_schematics}(a), a unit cell contains four qubit idle regions (\autoref{fig:unit_cell_schematics}(b)), two regions to perform single- and two-qubit gates as well as initialization and readout (\autoref{fig:unit_cell_schematics}(c)), and six regions to only perform two-qubit gates (\autoref{fig:unit_cell_schematics}(d)).
 
 \section{Electronics}\label{sec:electronics}
 In this section we discuss the (local) electronics that is needed for DC biasing and for supplying the control signals for qubit operations, and to perform qubit readout.
@@ -165,12 +150,12 @@ In this section we discuss the (local) electronics that is needed for DC biasing
 \subsection{DC biasing}
 To mitigate inhomogeneity in the qubit lattice, we design a sample-and-hold scheme to apply a local DC bias to the gate electrodes.
 Based on the different gates functionalities, we define two bias voltage resolutions.
-For gates acting as barriers to shuttling channels only a resolution sufficient to maintain an electron in a quantum dot is required and therefore we can afford a coarse resolution of 1~mV.
+For gates acting as barriers to shuttling channels only a resolution sufficient to maintain an electron in a quantum dot is required and therefore we can afford a coarse resolution of 1 mV.
 A resolution of 1 \textmu V is required for all other plunger and barrier gates~\cite{Vandersypen2017}.
 To achieve the coarse resolution a minimum hold capacitance of $\sim$0.16 fF is required (limited by the electron charge $e/\Delta V$), while $\sim$14 pF (limited by thermal noise $k_B T/V^2$, assuming power dissipation from the local electronics raises the operating temperature to 1 K) is required for the fine resolution.
 In the qubit idling region (\autoref{fig:unit_cell_schematics}(b)) the four barrier gates only require coarse resolution DC biasing.
-In the qubit operation region shown in \autoref{fig:unit_cell_schematics}(c), a coarse resolution is sufficient for the two outer gates in the shuttling channel, while the seven other gates require a fine resolution.
-In the two-qubit operation region (\autoref{fig:unit_cell_schematics}(d)), the three inner gates require a fine resolution, while for the two outer gates a coarse resolution is sufficient.
+In the qubit operations region shown in \autoref{fig:unit_cell_schematics}(c), a coarse resolution is sufficient for the two outer gates in the shuttling channel, while the seven other gates require a fine resolution.
+In the two-qubit operations region (\autoref{fig:unit_cell_schematics}(d)), the three inner gates require a fine resolution, while for the two outer gates a coarse resolution is sufficient.
 These requirements are summarized in Table~\ref{tab:DC_AC_count}.
 A total of 64 control gates per unit cell require DC biasing, out of which 32 require fine resolution, while for the other 32 a coarse resolution is sufficient.
 The need for DC biasing of the shuttling gates is eliminated by making the travelling wave potential large enough to overcome potential landscape inhomogeneities.
@@ -183,7 +168,7 @@ The need for DC biasing of the shuttling gates is eliminated by making the trave
         \hline \hline
         Qubit idling region & 4$\times$ & - & 4 & 4 \\
         \hline
-        All-operation region & 2$\times$ & 7 & 2 & 6 \\
+        All-operations region & 2$\times$ & 7 & 2 & 6 \\
         \hline
         Two-qubit operations & 6$\times$ & 3 & 2 & 5 \\
         region & & & & \\
@@ -223,7 +208,7 @@ This, in turn, will set the module size (i.e. the number of unit cells $N^2$ per
 
 \subsection{Signals for qubit operations}
 
-To perform single- and two-qubit operations, as well as readout and initialization, the qubits are shuttled to the operation regions in \autoref{fig:unit_cell_schematics}(c,d), where the operations are performed by applying pulsed signals to the appropriate gates.
+To perform single- and two-qubit operations, as well as readout and initialization, the qubits are shuttled to the operations regions in \autoref{fig:unit_cell_schematics}(c,d), where the operations are performed by applying pulsed signals to the appropriate gates.
 
 Linear arrays of gate electrodes (blue gates in \autoref{fig:unit_cell_schematics}) define shuttling channels and a travelling wave potential can trap and shuttle an electron along these channels.
 Four phase-shifted sinusoidal signals that are applied to four consecutive gates (different shades of blue in \autoref{fig:unit_cell_schematics}) and reused every \textcolor{red}{fourth} gate, are used to generate the travelling wave potential.
@@ -248,9 +233,9 @@ This totals to 58 gates per unit cell requiring a pulsed signal, as summarised i
 \end{figure}
 
 \subsection{Readout}
-Qubit readout is performed at the operation region shown in \autoref{fig:unit_cell_schematics}(c).
+Qubit readout is performed at the operations region shown in \autoref{fig:unit_cell_schematics}(c).
 Charge sensing is done with a readout quantum dot connected to source/drain ohmic contacts and spin-to-charge conversion based on Pauli spin blockade is employed for spin readout~\cite{Zwanenburg2013}.
-Additionally, the array is initialised by shuttling electrons that are provided by the ohmics in this operation region to the unit cell vertices.
+Additionally, the array is initialised by shuttling electrons that are provided by the ohmics in this operations region to the unit cell vertices.
 
 Readout is performed sequentially across the unit cells of each module, while the modules are read out in parallel.
 This is done by connecting the drain contacts of all sensor dots in a module to a single line at the quantum plane boundary and consecutively pulsing their plungers to bring them to the low-impedance, electrostatically sensitive regime, while all other sensor dots in the module are in Coulomb blockade (i.e. in the high-impedance regime).
@@ -274,7 +259,7 @@ A total of 58 remote pulsed voltage sources are used to generate the required cy
 
 \autoref{fig:surface_code} depicts the surface code cycle. 
 \autoref{fig:surface_code}(a) shows the circuit diagram for a single surface code cycle and is the 4-qubit analogue of the circuit shown in Ref.~\cite{Versluis2017}. For the present architecture only four qubits are required per unit cell, because the exchange coupling is not always present as is the case in superconducting qubits.
-Steps 1--10 consist of either single- or two-qubit operations for which one or two of the qubits are shuttled from their idle position to the operation region to undergo either a single- or a two-qubit gate.
+Steps 1--10 consist of either single- or two-qubit operations for which one or two of the qubits are shuttled from their idle position to an interactions region to undergo either a single- or a two-qubit gate.
 At the end of the cycle, the ancilla qubits are measured.
 As an example, \autoref{fig:surface_code}(b,c) depict the qubit movement in steps 1 and 3, corresponding to single- and two-qubit gates, respectively.
 %The qubit movement in the other steps is shown in the Supplementary Information.
@@ -293,7 +278,7 @@ Logic gates in the surface code with lattice surgery are achieved by creating de
 We implement these defects by preventing shuttling of a subset of data qubits via locally integrated switches.
 The signals used to control these switches are arranged in a crossbar fashion across the entire quantum plane.
 In practice, we propose to use $x$ crossbars over the entire array, in order to allow for $x$ defects to be simultaneously created and manipulated.
-By activating a certain switch, the corresponding data qubit is not shuttled over to the operation region.
+By activating a certain switch, the corresponding data qubit is not shuttled over to the interactions region.
 At the same time, the ancilla qubit with which the data qubit was supposed to have a two-qubit interaction is still shuttled over, but since the data qubit is not present, the two-qubit gate does not take place.
 
 \section{Line scaling}

@@ -1,0 +1,8 @@
+
+*.log
+_region_.tex
+_region_Notes.bib
+*.aux
+*.bbl
+*.blg
+*.upb
